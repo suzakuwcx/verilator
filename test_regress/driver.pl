@@ -663,6 +663,7 @@ sub new {
                             "-Mdir $self->{obj_dir}",
                             "-OD",  # As currently disabled unless -O3
                             "--debug-check",
+                            "--public-flat-rw",
                             "--comp-limit-members 10", ],
         verilator_flags2 => [],
         verilator_flags3 => ["--clk clk"],
