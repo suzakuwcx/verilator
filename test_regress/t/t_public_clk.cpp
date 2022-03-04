@@ -5,6 +5,7 @@
 #include "verilatedos.h"
 // Generated header
 #include "Vt_public_clk.h"
+#include "Vt_public_clk___024root.h"
 // General headers
 #include "verilated.h"
 #include "verilated_vcd_c.h"
@@ -29,7 +30,7 @@ int main(int argc, char** argv, char** env) {
     tfp->open(STRINGIFY(TEST_OBJ_DIR) "/simx.vcd");
 #endif
 
-    topp->t__DOT__clk = 0;
+    topp->rootp->t__DOT__clk = 0;
     topp->eval();
     {
         contextp->timeInc(10 * MAIN_TIME_MULTIPLIER);
@@ -40,7 +41,7 @@ int main(int argc, char** argv, char** env) {
 #endif
     while ((contextp->time() < sim_time * MAIN_TIME_MULTIPLIER)
            && !contextp->gotFinish()) {
-        topp->t__DOT__clk = !topp->t__DOT__clk;
+        topp->rootp->t__DOT__clk = !topp->rootp->t__DOT__clk;
         topp->eval();
         contextp->timeInc(1 * MAIN_TIME_MULTIPLIER);
         contextp->timeInc(1 * MAIN_TIME_MULTIPLIER);
