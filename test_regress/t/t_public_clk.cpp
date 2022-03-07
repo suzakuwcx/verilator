@@ -32,15 +32,12 @@ int main(int argc, char** argv, char** env) {
 
     topp->rootp->t__DOT__clk = 0;
     topp->eval();
-    {
-        contextp->timeInc(10 * MAIN_TIME_MULTIPLIER);
-    }
+    { contextp->timeInc(10 * MAIN_TIME_MULTIPLIER); }
 
 #if VM_TRACE
     if (tfp) tfp->dump(contextp->time());
 #endif
-    while ((contextp->time() < sim_time * MAIN_TIME_MULTIPLIER)
-           && !contextp->gotFinish()) {
+    while ((contextp->time() < sim_time * MAIN_TIME_MULTIPLIER) && !contextp->gotFinish()) {
         topp->rootp->t__DOT__clk = !topp->rootp->t__DOT__clk;
         topp->eval();
         contextp->timeInc(1 * MAIN_TIME_MULTIPLIER);
