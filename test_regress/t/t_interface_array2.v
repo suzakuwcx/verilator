@@ -18,47 +18,32 @@ intf.source intf_inst
 assign intf_inst.logic_in_intf = value;
 endmodule
 
-function integer return_3();
-    return 3;
-endfunction
-
 module t
 #(
-    parameter N = 6
+    parameter N = 2
 )();
     intf ifs[N-1:0] ();
     logic [N-1:0] data;
-    assign data = {1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1};
+    assign data = {1'b0, 1'b1};
 
-    generate
-        genvar i;
-        for (i = 0;i < 3; i++) begin
-            assign ifs[i].logic_in_intf  = data[i];
-        end
-    endgenerate
-    modify_interface m3 (
-        .value(data[return_3()]),
-        .intf_inst(ifs[return_3()]));
-
-    modify_interface m4 (
-    	.value(data[4]),
-    	.intf_inst(ifs[4]));
-
-    modify_interface m5 (
-    	.value(~ifs[4].logic_in_intf),
-    	.intf_inst(ifs[5]));
+    modify_interface m0 (
+        .value(data[0]),
+        .intf_inst(ifs[0]));
 
     generate
         genvar j;
         for (j = 0;j < N-1; j++) begin
             initial begin
-               if (ifs[j].logic_in_intf != data[j]) $stop;
+                if (ifs[j].logic_in_intf != data[j]) begin
+                    $display("!!!ERROR!!! ifs[%0d].logic_in_intf (%0d) != data[%0d] (%0d)",
+                       j, ifs[j].logic_in_intf, j, data[j]);
+                    $stop();
+                end
             end
         end
     endgenerate
 
     initial begin
-       if (ifs[5].logic_in_intf != ~ifs[4].logic_in_intf) $stop;
        $write("*-* All Finished *-*\n");
        $finish;
     end
